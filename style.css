@@ -1,0 +1,2986 @@
+/*
+Theme Name: Veya Theme
+Author: Shashkevych Studio
+Description: Custom theme for Veya Store
+Version: 1.0
+*/
+
+/* style.css */
+/* -------------------------------------------------------------------------- */
+/* CUSTOM FONTS */
+/* -------------------------------------------------------------------------- */
+
+@font-face {
+    font-family: 'Angst';
+    src: url('fonts/Angst-Thin.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Angst';
+    src: url('fonts/Angst-Normal.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Craftwork';
+    src: url('fonts/CraftworkGrotesk-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Craftwork';
+    src: url('fonts/CraftworkGrotesk-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ======= Normalize Start ======= */
+html {
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+h1 {
+    font-size: 3.5vw;
+    margin: 0;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+dl dl,
+dl ol,
+dl ul,
+ol dl,
+ul dl {
+    margin: 0;
+}
+
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin: 0;
+}
+
+hr {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    color: inherit;
+    height: 0;
+    overflow: visible;
+}
+
+main {
+    display: block;
+}
+
+pre {
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
+
+a {
+    background-color: transparent;
+    text-decoration: none;
+}
+
+abbr[title] {
+    text-decoration: underline;
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+}
+
+b,
+strong {
+    font-weight: bolder;
+}
+
+code,
+kbd,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
+
+small {
+    font-size: 80%;
+}
+
+audio,
+video {
+    display: inline-block;
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+img {
+    border-style: none;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+table {
+    border-color: inherit;
+    text-indent: 0;
+}
+
+button,
+input,
+select {
+    margin: 0;
+}
+
+button {
+    overflow: visible;
+    text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+fieldset {
+    padding: 0.35em 0.75em 0.625em;
+}
+
+input {
+    overflow: visible;
+}
+
+legend {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: inherit;
+    display: table;
+    max-width: 100%;
+    white-space: normal;
+}
+
+progress {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+select {
+    text-transform: none;
+}
+
+textarea {
+    margin: 0;
+    overflow: auto;
+}
+
+[type="checkbox"],
+[type="radio"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+[type="search"] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+::-webkit-input-placeholder {
+    color: inherit;
+    opacity: 0.54;
+}
+
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+}
+
+::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+
+:-moz-focusring {
+    outline: 1px dotted ButtonText;
+}
+
+:-moz-ui-invalid {
+    box-shadow: none;
+}
+
+details {
+    display: block;
+}
+
+dialog {
+    background-color: white;
+    border: solid;
+    color: black;
+    display: block;
+    height: -moz-fit-content;
+    height: -webkit-fit-content;
+    height: fit-content;
+    left: 0;
+    margin: auto;
+    padding: 1em;
+    position: absolute;
+    right: 0;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    width: fit-content;
+}
+
+dialog:not([open]) {
+    display: none;
+}
+
+summary {
+    display: list-item;
+}
+
+canvas {
+    display: inline-block;
+}
+
+template {
+    display: none;
+}
+
+[hidden] {
+    display: none;
+}
+
+/* ======= Normalize End ======= */
+
+/* ======= Base Code Start ======= */
+:root {
+    --clr-accent: #fbd87e;
+    --clr-alternative: #340100;
+
+    --clr-white: #ffffff;
+    --clr-white-secondary: #f5f5f5;
+    --clr-dark: #101010;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Craftwork', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--clr-dark);
+    background-color: var(--clr-white);
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.img-black {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+@media (min-width: 768.01px) {
+    .desktop-hidden {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-hidden {
+        display: none !important;
+    }
+}
+
+/* ======= Custom Scrollbar Styles Start ======= */
+
+/* Для WebKit-браузеров (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 10px;
+    /* Ширина скроллбара */
+}
+
+/* Фон (дорожка) скроллбара */
+::-webkit-scrollbar-track {
+    background: var(--clr-white);
+    /* Цвет фона, как у body */
+    border-left: 1px solid #e0d5c1;
+    /* Тонкая рамка для отделения */
+}
+
+/* Ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: var(--clr-alternative);
+    /* Основной темный цвет */
+    border-radius: 6px;
+    /* Скругленные углы */
+    border: 2px solid var(--clr-white);
+    /* Отступ от краев, чтобы создать эффект рамки */
+}
+
+/* Ползунок при наведении */
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--clr-accent);
+    /* Яркий акцентный цвет при наведении */
+}
+
+/* ======= Custom Scrollbar Styles End ======= */
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 8px 0;
+    /* background-color: transparent; прозора */
+    background-color: var(--clr-white);
+    -webkit-box-shadow: 0 0 10px #00000040;
+    box-shadow: 0 0 10px #00000040;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.header.fixed {
+    background-color: var(--clr-white);
+    -webkit-box-shadow: 0 0 10px #00000040;
+    box-shadow: 0 0 10px #00000040;
+}
+
+.header__inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.header__logo-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header__logo-img {
+    width: 40px;
+}
+
+.header__nav {
+    -webkit-margin-start: auto;
+    margin-inline-start: auto;
+    -webkit-margin-end: 35px;
+    margin-inline-end: 35px;
+}
+
+.header__nav-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header__nav-item {
+    margin-left: 35px;
+}
+
+.header__nav-link {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    /* color: var(--clr-white); прозора */
+    color: var(--clr-dark);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 5px;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.header.fixed .header__nav-link {
+    color: var(--clr-dark);
+}
+
+/* .header:not(.fixed) .img-black {
+    filter: invert(0) !important; прозора
+} */
+
+.header__nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: var(--clr-alternative);
+    -webkit-transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    -o-transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.header__nav-link:hover,
+.header.fixed .header__nav-link:hover {
+    color: var(--clr-alternative);
+}
+
+.header__nav-link:hover::after {
+    width: 100%;
+}
+
+.header__cart {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+}
+
+.header__cart svg {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+
+.header__cart svg path {
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+    stroke: var(--clr-dark);
+}
+
+.header.fixed .header__cart svg path {
+    stroke: var(--clr-dark);
+}
+
+.header__cart:hover svg path,
+.header.fixed:hover .header__cart svg path {
+    stroke: var(--clr-alternative);
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.header__contact-icons {
+    display: none;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 15px;
+    /* Відстань між іконками */
+    margin: 15px 0;
+}
+
+.header__icon-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    color: var(--clr-dark);
+    text-decoration: none;
+    text-wrap: nowrap;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.header__icon-link:hover {
+    opacity: .7;
+}
+
+.header__contact-icon {
+    width: 30px;
+    /* Розмір іконок */
+    height: 30px;
+    stroke: var(--clr-dark);
+    /* Колір обводки іконок */
+    -webkit-transition: stroke 0.3s ease;
+    -o-transition: stroke 0.3s ease;
+    transition: stroke 0.3s ease;
+}
+
+/* --- UPDATED: Mobile Styles with Animation --- */
+@media (max-width: 768px) {
+    .header.active {
+        background-color: var(--clr-white);
+    }
+
+    .header.active .header__cart svg path {
+        stroke: var(--clr-dark);
+    }
+
+    .header.active .img-black {
+        -webkit-filter: invert(1) !important;
+        filter: invert(1) !important;
+    }
+
+    .header__contact-icons {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        transition: all .3s ease;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    .header__nav {
+        /* display: none; --- REMOVED --- */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--clr-white);
+        border-top: 1px solid var(--clr-alternative);
+        border-bottom: 1px solid var(--clr-alternative);
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 20px 0;
+
+        /* --- NEW: Animation Properties --- */
+        visibility: hidden;
+        opacity: 0;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .header__nav.active {
+        /* display: -webkit-box; --- REMOVED --- */
+        /* display: -ms-flexbox; --- REMOVED --- */
+        /* display: flex; --- REMOVED --- */
+
+        /* --- NEW: Active State for Animation --- */
+        visibility: visible;
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+        max-height: 500px;
+    }
+
+    .header__nav-list {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .header__nav-item {
+        margin: 15px 0;
+
+        /* --- NEW: Staggered Animation for Nav Items --- */
+        opacity: 0;
+        -webkit-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        transform: translateY(-10px);
+        -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+        -o-transition: opacity 0.3s ease, transform 0.3s ease;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .header__nav.active .header__nav-item {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    /* --- NEW: Adding delay for each item --- */
+    .header__nav.active .header__nav-item:nth-child(1) {
+        -webkit-transition-delay: 0.1s;
+        -o-transition-delay: 0.1s;
+        transition-delay: 0.1s;
+    }
+
+    .header__nav.active .header__nav-item:nth-child(2) {
+        -webkit-transition-delay: 0.15s;
+        -o-transition-delay: 0.15s;
+        transition-delay: 0.15s;
+    }
+
+    .header__nav.active .header__nav-item:nth-child(3) {
+        -webkit-transition-delay: 0.2s;
+        -o-transition-delay: 0.2s;
+        transition-delay: 0.2s;
+    }
+
+    .header__nav.active .header__nav-item:nth-child(4) {
+        -webkit-transition-delay: 0.25s;
+        -o-transition-delay: 0.25s;
+        transition-delay: 0.25s;
+    }
+
+    .header__nav.active .header__nav-item:nth-child(5) {
+        -webkit-transition-delay: 0.3s;
+        -o-transition-delay: 0.3s;
+        transition-delay: 0.3s;
+    }
+
+    .header__nav.active .header__contact-icons {
+        -webkit-transition-delay: 0.35s;
+        -o-transition-delay: 0.35s;
+        transition-delay: 0.35s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    .burger {
+        display: block;
+        position: relative;
+        width: 24px;
+        height: 18px;
+        -webkit-margin-start: auto;
+        margin-inline-start: auto;
+        -webkit-margin-end: 20px;
+        margin-inline-end: 20px;
+    }
+
+    .burger span {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        /* background-color: var(--clr-white); прозора */
+        background-color: var(--clr-dark);
+        border-radius: 3px;
+        -webkit-transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        -o-transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .header.fixed .burger span {
+        background-color: var(--clr-dark);
+    }
+
+    .burger span:nth-child(1) {
+        top: 0;
+    }
+
+    .burger span:nth-child(2) {
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .burger span:nth-child(3) {
+        bottom: 0;
+    }
+
+    .burger.active span:nth-child(1) {
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        top: 8px;
+        background-color: var(--clr-dark);
+    }
+
+    .burger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.active span:nth-child(3) {
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        bottom: 8px;
+        background-color: var(--clr-dark);
+    }
+
+    .header__nav-link {
+        color: var(--clr-dark);
+    }
+
+    .header__cart {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* ======= Hero Section Styles Start (Updated) ======= */
+
+.hero {
+    position: relative;
+    height: 800px;
+    /* ЗМІНЕНО: Вирівнювання контенту в лівий нижній кут */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    overflow: hidden;
+    color: var(--clr-white);
+    /* ДОДАНО: Відступи всередині секції */
+    padding: 60px;
+}
+
+.hero__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Фон завжди позаду */
+}
+
+/* ДОДАНО: Стилі для градієнтного оверлею */
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Градієнт від прозорого до темного знизу */
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), color-stop(50%, rgba(0, 0, 0, 0)));
+    background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 50%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 50%);
+    z-index: 10;
+    /* Оверлей над фоном, але під контентом */
+}
+
+.hero__bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    opacity: 0;
+    /* ЗМІНЕНО: Початковий стан - картинка збільшена */
+    -webkit-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+    /* ЗМІНЕНО: Z-index для плавного "чистого" фейду */
+    z-index: 1;
+    /* ЗМІНЕНО: Анімація тепер застосовується при додаванні класу .active */
+    -webkit-transition: opacity 1.5s ease-in-out, -webkit-transform 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out, -webkit-transform 1.5s ease-in-out;
+    -o-transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out, -webkit-transform 1.5s ease-in-out;
+}
+
+.hero__bg-img.active {
+    opacity: 1;
+    /* ЗМІНЕНО: Кінцевий стан - картинка зменшується до нормального розміру */
+    -webkit-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    transform: scale(1.0);
+    z-index: 2;
+    /* Активне зображення завжди зверху */
+}
+
+.hero__bg-video {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.hero__content {
+    position: relative;
+    /* ЗМІНЕНО: Контент тепер над градієнтом */
+    z-index: 3;
+}
+
+/* ЗМІНЕНО: Видалено .hero__title, .hero__subtitle. Додано .hero__text */
+.hero__text {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    /* Єдиний розмір для всього тексту */
+    line-height: 1.2;
+    margin: 0 0 1rem 0;
+    /* Відступ до кнопки */
+    text-shadow: none;
+    max-width: 1200px;
+    /* Тінь більше не потрібна через градієнт */
+}
+
+.hero__paragraph {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    margin: 0 0 2rem 0;
+    max-width: 992px;
+}
+
+.hero__btn {
+    display: inline-block;
+    padding: 15px 45px;
+    border: 1px solid var(--clr-dark);
+    background-color: transparent;
+    color: var(--clr-dark);
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    -webkit-transition: background-color 0.3s ease, color 0.3s ease;
+    -o-transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero__btn:hover {
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border-color: var(--clr-alternative);
+}
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 768px) {
+    .hero {
+        height: 100vh;
+        padding: 56px 0 15vh;
+        /* Зменшуємо відступи */
+    }
+
+    .hero__bg-img {
+        display: none;
+    }
+
+    .hero__bg-video {
+        display: block;
+    }
+
+    .hero__text {
+        font-size: 1.25rem;
+        /* Зменшуємо текст на мобільних */
+    }
+
+    .hero__btn {
+        text-align: center;
+        padding: 15px;
+        width: 100%;
+    }
+}
+
+/* ======= Hero Section Styles End (Updated) ======= */
+
+/* ======= Collections Section Styles Start ======= */
+
+.collections {
+    padding: 80px 0;
+    background-color: var(--clr-white);
+}
+
+.collections__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.collections__grid {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 16px 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 16px;
+}
+
+.collection-card {
+    display: block;
+    text-decoration: none;
+    color: var(--clr-dark);
+}
+
+.collection-card__image-wrap {
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.collection-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    /* Maintains a consistent shape */
+    -o-object-fit: cover;
+    object-fit: cover;
+    -webkit-transition: -webkit-transform 0.4s ease;
+    transition: -webkit-transform 0.4s ease;
+    -o-transition: transform 0.4s ease;
+    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+}
+
+.collection-card:hover .collection-card__image {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.collection-card__title {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+/* --- СТИЛИ ДЛЯ СТРЕЛОК УДАЛЕНЫ --- */
+
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ КНОПКИ И ПАГИНАЦИИ --- */
+.collections__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 30px;
+    /* Расстояние между кнопкой и пагинацией */
+    margin-top: 50px;
+    /* Отступ от слайдера */
+    position: relative;
+}
+
+.collections__btn {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    /* Чтобы кнопка не сжималась */
+}
+
+.collections .swiper-pagination {
+    width: auto;
+    position: absolute;
+    right: 0;
+    left: unset;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    gap: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.collections .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 1px solid var(--clr-alternative);
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease, background-color 0.3s ease;
+    -o-transition: opacity 0.3s ease, background-color 0.3s ease;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    margin: 0 !important;
+}
+
+.collections .swiper-pagination-bullet:hover {
+    background-color: var(--clr-alternative);
+    overflow: .8;
+}
+
+.collections .swiper-pagination-bullet-active {
+    background-color: var(--clr-alternative);
+    opacity: 1;
+}
+
+/* Adjust on smaller screens */
+@media (max-width: 768px) {
+    .collections {
+        padding: 40px 0;
+    }
+
+    .collections__title {
+        font-size: 1.75rem;
+        margin-bottom: 25px;
+    }
+
+    .collection-card__image-wrap {
+        margin-bottom: 10px;
+    }
+
+    /* На мобильных устройствах располагаем кнопку и пагинацию друг под другом */
+    .collections__footer {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 25px;
+    }
+}
+
+
+/* ======= Collections Section Styles End ======= */
+
+/* ======= About Section Styles Start ======= */
+
+.about {
+    padding: 80px 0;
+    background-color: var(--clr-white-secondary);
+}
+
+.about__inner {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 2fr 60px 3fr;
+    grid-template-columns: 2fr 3fr;
+    gap: 60px;
+}
+
+.about__text-content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+}
+
+.about__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.about__description {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--clr-dark);
+    margin-bottom: 20px;
+}
+
+.about__btn {
+    margin-top: 10px;
+}
+
+.about__image-grid {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 60%;
+    flex: 1 1 60%;
+    /* Занимает 60% ширины */
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 10px 1fr 10px 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-rows: 1fr 10px 1fr 10px 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    /* Высота ряда сетки */
+    gap: 10px;
+}
+
+.about__image-grid>*:nth-child(1) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+}
+
+.about__image-grid>*:nth-child(2) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+}
+
+.about__image-grid>*:nth-child(3) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 5;
+}
+
+.about__image-grid>*:nth-child(4) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+}
+
+.about__image-grid>*:nth-child(5) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 3;
+}
+
+.about__image-grid>*:nth-child(6) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 5;
+}
+
+.about__image-grid>*:nth-child(7) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 1;
+}
+
+.about__image-grid>*:nth-child(8) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 3;
+}
+
+.about__image-grid>*:nth-child(9) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 5;
+}
+
+.about__grid-item {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.about__grid-image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    display: block;
+    -webkit-transition: -webkit-transform 0.4s ease;
+    transition: -webkit-transform 0.4s ease;
+    -o-transition: transform 0.4s ease;
+    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+}
+
+.about__grid-item:hover .about__grid-image {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/* --- Расположение элементов сетки --- */
+.about__grid-item--1 {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
+    /* Занимает 2 колонки */
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    grid-row: 1 / 3;
+    /* Занимает 2 ряда */
+}
+
+.about__grid-item--2 {
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+    grid-column: 3 / 4;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    grid-row: 1 / 2;
+}
+
+.about__grid-item--3 {
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+    grid-column: 3 / 4;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 2;
+    grid-row: 2 / 4;
+}
+
+.about__grid-item--4 {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
+    -ms-grid-row: 3;
+    -ms-grid-row-span: 1;
+    grid-row: 3 / 4;
+}
+
+.about__grid-item--5 {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2 / 3;
+    /* Занимает 2 колонки */
+    -ms-grid-row: 3;
+    -ms-grid-row-span: 1;
+    grid-row: 3 / 4;
+}
+
+.about__grid-item--6 {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2 / 3;
+    /* Занимает 2 колонки */
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    grid-row: 1 / 3;
+    /* Занимает 2 ряда */
+}
+
+/* --- Адаптация для мобильных устройств --- */
+@media (max-width: 992px) {
+    .about__inner {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about__image-grid {
+        width: 100%;
+        grid-template-rows: repeat(3, 150px);
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 40px 0;
+    }
+
+    .about__title {
+        font-size: 1.75rem;
+        margin-bottom: 25px;
+    }
+
+    .about__text-content {
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+
+    .about__image-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 150px);
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+    }
+
+    .about__image-grid>*:nth-child(1) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+    }
+
+    .about__image-grid>*:nth-child(2) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
+    }
+
+    .about__image-grid>*:nth-child(3) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+    }
+
+    .about__image-grid>*:nth-child(4) {
+        -ms-grid-row: 2;
+        -ms-grid-column: 2;
+    }
+
+    .about__grid-item--1 {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+        grid-column: 1 / 2;
+        /* Широкое изображение сверху */
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+        grid-row: 1 / 2;
+    }
+
+    .about__grid-item--2 {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+        grid-column: 1 / 2;
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+        grid-row: 2 / 3;
+        display: none;
+    }
+
+    .about__grid-item--3 {
+        -ms-grid-column: 2;
+        -ms-grid-column-span: 1;
+        grid-column: 2 / 3;
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+        grid-row: 2 / 3;
+    }
+
+    .about__grid-item--4 {
+        /* grid-column: 1 / 2;
+        grid-row: 3 / 4; */
+
+        -ms-grid-column: 2;
+
+        -ms-grid-column-span: 1;
+
+        grid-column: 2 / 3;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+        grid-row: 1 / 2;
+    }
+
+    .about__grid-item--5 {
+        /* grid-column: 2 / 3;
+        grid-row: 3 / 4; */
+
+        -ms-grid-column: 1;
+
+        -ms-grid-column-span: 1;
+
+        grid-column: 1 / 2;
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+        grid-row: 2 / 3;
+    }
+
+    .about__grid-item--6 {
+        -ms-grid-column: 2;
+        -ms-grid-column-span: 1;
+        grid-column: 2 / 3;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+        grid-row: 1 / 2;
+        display: none;
+    }
+}
+
+
+/* ======= About Section Styles End ======= */
+
+
+/* ======= Popup Styles Start ======= */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Полупрозрачный фон с цветом --clr-alternative */
+    z-index: 9999;
+    display: none;
+    /* Скрыто по-умолчанию */
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.popup.active {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.popup__close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--clr-white);
+    cursor: pointer;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.popup__close:hover {
+    color: var(--clr-accent);
+}
+
+.popup__img {
+    max-width: 90%;
+    max-height: 90%;
+    -o-object-fit: contain;
+    object-fit: contain;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ======= Popup Styles End ======= */
+
+/* ======= CTA Banner Styles Start ======= */
+.cta-banner {
+    position: relative;
+    /* Обязательно для позиционирования псевдо-элемента */
+    padding: 100px 0;
+    text-align: center;
+    color: var(--clr-white);
+    overflow: hidden;
+    /* Скрывает все, что выходит за пределы блока */
+    min-height: 50vh;
+    /* Можно оставить для высоты блока */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /* Для выравнивания контента */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+/* Создаем фоновый слой */
+.cta-banner::before {
+    content: '';
+    position: fixed;
+    /* Вот ключ к успеху! */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/hero-nadyh.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    /* Помещаем фон ЗА контентом */
+}
+
+.cta-banner__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    /* Полупрозрачный оверлей с вашим цветом --clr-alternative */
+    z-index: 1;
+}
+
+.cta-banner__content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-banner__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cta-banner__subtitle {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.cta-banner__btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 1px solid var(--clr-white);
+    background-color: transparent;
+    color: var(--clr-white);
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.cta-banner__btn:hover {
+    border-color: var(--clr-alternative);
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .cta-banner {
+        padding: 40px 0;
+        min-height: 50vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+    }
+
+    .cta-banner::before {
+        background-position: right 28% center;
+    }
+
+    .cta-banner__content p {
+        margin-bottom: 8vh;
+    }
+
+    .cta-banner__title {
+        font-size: 1.25rem;
+    }
+
+    .cta-banner__subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* ======= CTA Banner Styles End ======= */
+
+/* ======= Creativity Section Styles Start ======= */
+
+.creativity {
+    padding: 80px 0;
+    background-color: var(--clr-white);
+    /* Можете змінити фон, якщо потрібно */
+}
+
+.creativity__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.creativity__inner {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 2fr 60px 3fr;
+    grid-template-columns: 2fr 3fr;
+    gap: 60px;
+}
+
+.creativity__text-content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+    /* Займає 50% ширини */
+}
+
+.creativity__description {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--clr-dark);
+    margin-bottom: 20px;
+}
+
+.creativity__btn {
+    margin-top: 10px;
+}
+
+.creativity__image-container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 10px 1fr 10px 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.creativity__image-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.creativity__image-wrap {
+    overflow: hidden;
+    max-height: calc(100% - 70px - 58px);
+    height: auto !important;
+    aspect-ratio: 9 / 16;
+}
+
+.creativity__image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    display: block;
+    -webkit-transition: -webkit-transform 0.4s ease;
+    transition: -webkit-transform 0.4s ease;
+    -o-transition: transform 0.4s ease;
+    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+}
+
+.creativity__image-wrap:hover .creativity__image {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.creativity__text {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1.1rem;
+    line-height: 30px;
+    color: var(--clr-dark);
+    margin: 20px 0 20px;
+    text-align: center;
+}
+
+.creativity__listen {
+    padding: 15px;
+    border: 1px solid var(--clr-dark);
+    background-color: transparent;
+    color: var(--clr-dark);
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+    width: 100%;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.creativity__listen:hover {
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border-color: var(--clr-alternative);
+}
+
+.creativity__listen::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M9 19C9 20.6569 7.65685 22 6 22C4.34315 22 3 20.6569 3 19C3 17.3431 4.34315 16 6 16C7.65685 16 9 17.3431 9 19Z' stroke='%23101010' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M21 17C21 18.6569 19.6569 20 18 20C16.3431 20 15 18.6569 15 17C15 15.3431 16.3431 14 18 14C19.6569 14 21 15.3431 21 17Z' stroke='%23101010' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M9 19V8' stroke='%23101010' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M20.25 11.5C20.25 11.9142 20.5858 12.25 21 12.25C21.4142 12.25 21.75 11.9142 21.75 11.5H20.25ZM21.75 11.5V6H20.25V11.5H21.75Z' fill='%23101010'%3E%3C/path%3E%3Cpath d='M15.7351 3.75466L11.7351 5.08799C10.4151 5.52801 9.75503 5.74801 9.37752 6.27179C9 6.79556 9 7.49128 9 8.88273V11.9997L21 7.99969V7.54939C21 5.01693 21 3.7507 20.1694 3.15206C19.3388 2.55341 18.1376 2.95383 15.7351 3.75466Z' stroke='%23101010' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.creativity__listen:hover::before {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M9 19C9 20.6569 7.65685 22 6 22C4.34315 22 3 20.6569 3 19C3 17.3431 4.34315 16 6 16C7.65685 16 9 17.3431 9 19Z' stroke='%23ffffff' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M21 17C21 18.6569 19.6569 20 18 20C16.3431 20 15 18.6569 15 17C15 15.3431 16.3431 14 18 14C19.6569 14 21 15.3431 21 17Z' stroke='%23ffffff' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M9 19V8' stroke='%23ffffff' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M20.25 11.5C20.25 11.9142 20.5858 12.25 21 12.25C21.4142 12.25 21.75 11.9142 21.75 11.5H20.25ZM21.75 11.5V6H20.25V11.5H21.75Z' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M15.7351 3.75466L11.7351 5.08799C10.4151 5.52801 9.75503 5.74801 9.37752 6.27179C9 6.79556 9 7.49128 9 8.88273V11.9997L21 7.99969V7.54939C21 5.01693 21 3.7507 20.1694 3.15206C19.3388 2.55341 18.1376 2.95383 15.7351 3.75466Z' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+}
+
+.creativity .swiper-pagination {
+    width: auto;
+    position: unset;
+    gap: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transform: translateY(18px);
+    -ms-transform: translateY(18px);
+    transform: translateY(18px);
+}
+
+.creativity .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 1px solid var(--clr-alternative);
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease, background-color 0.3s ease;
+    -o-transition: opacity 0.3s ease, background-color 0.3s ease;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    margin: 0 !important;
+}
+
+.creativity .swiper-pagination-bullet:hover {
+    background-color: var(--clr-alternative);
+    overflow: .8;
+}
+
+.creativity .swiper-pagination-bullet-active {
+    background-color: var(--clr-alternative);
+    opacity: 1;
+}
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 992px) {
+    .creativity__inner {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .creativity__text-content {
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+    }
+
+    .creativity__image-container,
+    .creativity-slider {
+        width: 100%;
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .creativity {
+        padding: 40px 0;
+    }
+
+    .creativity-slider {
+        padding-bottom: 30px;
+    }
+
+    .creativity__title {
+        font-size: 1.75rem;
+        margin-bottom: 25px;
+    }
+
+    .creativity__image-container {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .creativity__image-wrap {
+        height: auto;
+        max-width: 420px;
+        margin: 0 auto;
+
+        width: 100%;
+        aspect-ratio: 3 / 4;
+    }
+
+    .creativity__swiper-content {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+
+        background-color: var(--clr-white-secondary);
+        padding: 30px;
+    }
+
+    .creativity__swiper-wrap {
+        overflow: hidden;
+        max-height: calc(100% - 70px - 58px);
+        height: auto;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+
+        /* aspect-ratio: 9 / 16; */
+    }
+
+    .creativity__swiper-image {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        -webkit-transition: -webkit-transform 0.4s ease;
+        transition: -webkit-transform 0.4s ease;
+        -o-transition: transform 0.4s ease;
+        transition: transform 0.4s ease;
+        transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+    }
+
+    .creativity__swiper-wrap:hover .creativity__swiper-image {
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+    .creativity__swiper-text {
+        font-family: 'Craftwork', sans-serif;
+        font-size: 1.1rem;
+        line-height: 30px;
+        color: var(--clr-dark);
+        margin: 20px 0 20px;
+        text-align: center;
+    }
+
+    .creativity__swiper-listen {
+        padding: 15px;
+        border: 1px solid var(--clr-dark);
+        background-color: transparent;
+        color: var(--clr-dark);
+        font-family: 'Craftwork', sans-serif;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 1px;
+        -webkit-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+        width: 100%;
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: auto;
+    }
+
+    .creativity__swiper-listen:hover {
+        background-color: var(--clr-alternative);
+        color: var(--clr-white);
+        border-color: var(--clr-alternative);
+    }
+
+    .creativity__swiper-listen::before {
+        content: '';
+        width: 24px;
+        height: 24px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M9 19C9 20.6569 7.65685 22 6 22C4.34315 22 3 20.6569 3 19C3 17.3431 4.34315 16 6 16C7.65685 16 9 17.3431 9 19Z' stroke='%23101010' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M21 17C21 18.6569 19.6569 20 18 20C16.3431 20 15 18.6569 15 17C15 15.3431 16.3431 14 18 14C19.6569 14 21 15.3431 21 17Z' stroke='%23101010' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M9 19V8' stroke='%23101010' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M20.25 11.5C20.25 11.9142 20.5858 12.25 21 12.25C21.4142 12.25 21.75 11.9142 21.75 11.5H20.25ZM21.75 11.5V6H20.25V11.5H21.75Z' fill='%23101010'%3E%3C/path%3E%3Cpath d='M15.7351 3.75466L11.7351 5.08799C10.4151 5.52801 9.75503 5.74801 9.37752 6.27179C9 6.79556 9 7.49128 9 8.88273V11.9997L21 7.99969V7.54939C21 5.01693 21 3.7507 20.1694 3.15206C19.3388 2.55341 18.1376 2.95383 15.7351 3.75466Z' stroke='%23101010' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+        -webkit-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        transition: all .3s ease;
+    }
+
+    .creativity__swiper-listen:hover::before {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M9 19C9 20.6569 7.65685 22 6 22C4.34315 22 3 20.6569 3 19C3 17.3431 4.34315 16 6 16C7.65685 16 9 17.3431 9 19Z' stroke='%23ffffff' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M21 17C21 18.6569 19.6569 20 18 20C16.3431 20 15 18.6569 15 17C15 15.3431 16.3431 14 18 14C19.6569 14 21 15.3431 21 17Z' stroke='%23ffffff' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M9 19V8' stroke='%23ffffff' stroke-width='1.5'%3E%3C/path%3E%3Cpath d='M20.25 11.5C20.25 11.9142 20.5858 12.25 21 12.25C21.4142 12.25 21.75 11.9142 21.75 11.5H20.25ZM21.75 11.5V6H20.25V11.5H21.75Z' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M15.7351 3.75466L11.7351 5.08799C10.4151 5.52801 9.75503 5.74801 9.37752 6.27179C9 6.79556 9 7.49128 9 8.88273V11.9997L21 7.99969V7.54939C21 5.01693 21 3.7507 20.1694 3.15206C19.3388 2.55341 18.1376 2.95383 15.7351 3.75466Z' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    }
+}
+
+.creativity__socials {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 20px;
+    /* Відстань між іконками */
+    margin-top: 25px;
+}
+
+/* Вирівнювання по центру на мобільних */
+@media (max-width: 992px) {
+    .creativity__socials {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+}
+
+.creativity__social-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--clr-dark);
+    background-color: var(--clr-white);
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.creativity__social-link:hover {
+    border-color: var(--clr-alternative);
+    background-color: var(--clr-alternative);
+}
+
+.creativity__social-link svg {
+    width: 100%;
+    height: 100%;
+    max-width: 24px;
+    max-height: 24px;
+    fill: var(--clr-dark);
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.creativity__social-link:hover svg {
+    fill: var(--clr-white);
+}
+
+.creativity__social-icon {
+    width: 35px;
+    /* Розмір іконки */
+    height: 35px;
+    vertical-align: middle;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+    stroke-width: 1.2;
+    /* Трохи тонша обводка для гармонії */
+}
+
+.creativity__social-link:hover .creativity__social-icon {
+    opacity: 0.7;
+}
+
+/* ======= Creativity Section Styles End ======= */
+
+/* ======= FAQ Section Styles Start ======= */
+.faq {
+    padding: 80px 0;
+    background-color: var(--clr-white-secondary);
+    /* Ваш фон */
+}
+
+.faq .section-title {
+    text-align: center;
+    /* Вирівнювання заголовка по лівому краю */
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+.faq__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    /* Вирівнювання колонок по верху */
+    gap: 40px;
+    /* Відстань між колонками */
+}
+
+.faq__column {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    /* Колонки займають рівну ширину */
+    min-width: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 0;
+    /* Прибираємо відступ, оскільки border буде роздільником */
+    border-top: 1px solid #e0e0e0;
+}
+
+.faq__item {
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.faq__question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 20px 10px;
+    /* Використовуємо ваш шрифт */
+    font-family: 'Angst', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    /* Використовуємо ваш колір тексту */
+    color: var(--clr-dark);
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.faq__question:hover {
+    color: var(--clr-alternative);
+}
+
+.faq__icon {
+    font-size: 1.5rem;
+    font-weight: 700;
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    transition: -webkit-transform 0.3s ease-out;
+    -o-transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+}
+
+.faq__answer {
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    -o-transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    /* Використовуємо ваш шрифт */
+    font-family: 'Craftwork', sans-serif;
+    color: #555;
+    line-height: 1.5;
+    font-size: 1rem
+}
+
+.faq__answer p {
+    margin: 0;
+    padding: 0 10px 20px 10px;
+}
+
+/* Стилі для активного стану */
+.faq__item.active .faq__question {
+    color: var(--clr-alternative);
+}
+
+.faq__item.active .faq__icon {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.faq__item.active .faq__answer {
+    max-height: 300px;
+    /* Збільште, якщо відповідь не вміщується */
+}
+
+.faq__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Адаптив для мобільних пристроїв */
+@media (max-width: 768px) {
+    .faq {
+        padding: 40px 0;
+    }
+
+    .faq__title {
+        font-size: 1.75rem;
+        margin-bottom: 25px;
+    }
+
+    .faq__list {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .faq__column {
+        width: 100%;
+        border-top: none;
+        /* Прибираємо верхній бордер для другої колонки на моб. */
+    }
+
+    .faq__column:first-child {
+        border-top: 1px solid #e0e0e0;
+    }
+}
+
+/* ======= FAQ Section Styles End ======= */
+
+/* ======= Footer Styles Start ======= */
+.footer {
+    padding: 40px 0;
+    /* Збільшив відступ для кращого вигляду */
+    background-color: var(--clr-white);
+}
+
+.footer__inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    /* Розташовуємо елементи в колонку */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    /* Центруємо все по горизонталі */
+    gap: 25px;
+    /* Відстань між групами елементів */
+}
+
+.footer__contact-group {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    /* Для правильного вирівнювання іконки та тексту */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.footer__contact-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 10px;
+    /* Відстань між іконкою пошти та текстом */
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1.1rem;
+    color: var(--clr-dark);
+    text-decoration: none;
+    text-wrap: nowrap;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.footer__contact-link:hover {
+    color: var(--clr-alternative);
+}
+
+.footer__contact-link:hover .footer__contact-icon {
+    stroke: var(--clr-alternative);
+    /* Змінюємо колір іконки при наведенні */
+}
+
+.footer__contact-link svg {
+    width: 30px;
+    height: 30px;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+
+.footer__contact-link svg path {
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.footer__contact-link:hover svg path {
+    stroke: var(--clr-alternative);
+}
+
+.footer__contact-icons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 15px;
+    /* Відстань між іконками */
+}
+
+.footer__icon-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    color: var(--clr-dark);
+    text-decoration: none;
+    text-wrap: nowrap;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.footer__icon-link:hover {
+    opacity: .7;
+}
+
+.footer__contact-icon {
+    width: 30px;
+    /* Розмір іконок */
+    height: 30px;
+    stroke: var(--clr-dark);
+    /* Колір обводки іконок */
+    -webkit-transition: stroke 0.3s ease;
+    -o-transition: stroke 0.3s ease;
+    transition: stroke 0.3s ease;
+}
+
+/* .footer__contact-icon path {
+    transition: all .3s ease;
+}
+
+.footer__icon-link:hover .footer__contact-icon,
+.footer__icon-link:hover .footer__contact-icon path {
+    stroke: var(--clr-alternative);
+} */
+
+
+.footer__copyright p {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    color: #555;
+    /* Трохи світліший колір для копірайту */
+    margin: 0;
+}
+
+/* Старі медіа-запити для футера більше не потрібні, оскільки він тепер завжди в колонку */
+@media (max-width: 768px) {
+    .footer__inner {
+        gap: 20px;
+        /* Трохи менший відступ на мобільних */
+    }
+
+    .footer__contact-icons {
+        gap: 15px;
+        /* Трохи менший відступ між іконками */
+    }
+}
+
+/* ======= Footer Styles End ======= */
+
+/* ======= NEW: Store Page Styles Start ======= */
+
+.store-hero {
+    position: relative;
+    padding: 100px 0 60px;
+    background-image: url('images/hero-okryl2.0.webp');
+    background-size: cover;
+    background-position: center;
+    color: var(--clr-white);
+    text-align: center;
+}
+
+.store-hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+}
+
+.store-hero__content {
+    position: relative;
+    z-index: 2;
+}
+
+.store-hero__breadcrumbs {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.store-hero__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 0;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.store-catalog {
+    padding: 60px 0 80px;
+}
+
+.filter-buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--clr-dark);
+    background-color: transparent;
+    color: var(--clr-dark);
+    font-family: 'Craftwork', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.filter-btn span {
+    text-transform: lowercase;
+}
+
+/* --- START: Updated Filter Styles --- */
+.store-filters {
+    margin-bottom: 50px;
+}
+
+/* This is the mobile-only toggle button, hidden on desktop */
+.filter-toggle {
+    display: none;
+}
+
+/* This is the container for the actual filter buttons */
+.filter-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* --- END: Updated Filter Styles --- */
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border-color: var(--clr-alternative);
+}
+
+.product-grid {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 30px 1fr 30px 1fr 30px 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.product-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    -webkit-transition: -webkit-box-shadow 0.3s ease;
+    transition: -webkit-box-shadow 0.3s ease;
+    -o-transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
+
+.product-card__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.product-card__image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+}
+
+.product-card__image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -webkit-transition: -webkit-transform 0.4s ease;
+    transition: -webkit-transform 0.4s ease;
+    -o-transition: transform 0.4s ease;
+    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+}
+
+.product-card:hover .product-card__image {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.product-card__hover-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.4)), color-stop(40%, rgba(0, 0, 0, 0)));
+    background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 40%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 40%);
+    opacity: 0;
+    -webkit-transition: opacity 0.4s ease;
+    -o-transition: opacity 0.4s ease;
+    transition: opacity 0.4s ease;
+}
+
+.product-card:hover .product-card__hover-overlay {
+    opacity: 1;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border: none;
+    font-family: 'Craftwork', sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: -webkit-transform 0.4s ease;
+    transition: -webkit-transform 0.4s ease;
+    -o-transition: transform 0.4s ease;
+    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+}
+
+.product-card:hover .add-to-cart-btn {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.product-card__info {
+    padding: 15px 5px;
+}
+
+.product-card__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.product-card__price {
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+}
+
+
+@media (max-width: 992px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        -ms-grid-columns: 1fr 20px 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .store-hero__title {
+        font-size: 1.75rem;
+    }
+
+    .filter-buttons {
+        gap: 10px;
+    }
+
+    .filter-btn {
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+
+    .filter-btn span {
+        text-transform: inherit;
+    }
+
+    /* --- START: UPDATED Mobile Filter Styles with Animation --- */
+    .filter-toggle {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        font-size: 1.25rem;
+        cursor: pointer;
+        font-family: 'Craftwork', sans-serif;
+        color: var(--clr-dark);
+        font-weight: 400;
+    }
+
+    .filter-toggle__arrow {
+        -webkit-transition: -webkit-transform 0.3s ease-out;
+        transition: -webkit-transform 0.3s ease-out;
+        -o-transition: transform 0.3s ease-out;
+        transition: transform 0.3s ease-out;
+        transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+    }
+
+    .store-filters.active .filter-toggle__arrow {
+        -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    .filter-list {
+        /* display: none; --- REMOVED --- */
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        border: none;
+
+        /* --- NEW: Animation properties --- */
+        overflow: hidden;
+        max-height: 0;
+        margin-top: 0;
+        -webkit-transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
+        -o-transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
+        transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
+        flex-wrap: nowrap;
+    }
+
+    .store-filters.active .filter-list {
+        /* display: flex; --- REMOVED --- */
+
+        /* --- NEW: Active state for animation --- */
+        max-height: 500px;
+        /* A large value to ensure content fits */
+        margin-top: 1rem;
+    }
+
+    .filter-list .filter-btn {
+        border: none;
+        text-align: left;
+        text-transform: none;
+        font-size: 1rem;
+        border-radius: 0;
+        font-family: 'Craftwork', sans-serif;
+        font-weight: 400;
+        padding: 0;
+        text-align: start;
+        background-color: transparent;
+        color: var(--clr-dark);
+    }
+
+    .filter-list .filter-btn:last-child {
+        border-bottom: none;
+    }
+
+    .filter-list .filter-btn.active {
+        background-color: transparent;
+        color: var(--clr-alternative);
+    }
+
+    /* --- END: Mobile Filter Styles --- */
+}
+
+@media (max-width: 576px) {
+    .product-grid {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======= NEW: Store Page Styles End ======= */
+
+/* ======= NEW: Product Page Styles Start ======= */
+
+.product-page {
+    padding: 120px 0 80px;
+    /* Отступ сверху для фикс. хедера */
+}
+
+.product-page__inner {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 60px 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+/* --- Стили галереи --- */
+.product-gallery {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-gallery-slider .swiper-slide {
+    aspect-ratio: 1 / 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+}
+
+.product-gallery-slider .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+/* Пагинация (точки) */
+.product-gallery .swiper-pagination {
+    position: static;
+    /* Располагаем под слайдером */
+    margin-top: 15px;
+}
+
+.product-gallery .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    opacity: 1;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+.product-gallery .swiper-pagination-bullet-active {
+    background-color: var(--clr-alternative);
+}
+
+/* --- Стили для стрелок навигации на странице продукта --- */
+.product-gallery .swiper-button-next,
+.product-gallery .swiper-button-prev {
+    color: var(--clr-alternative);
+    /* Используем твой фирменный цвет */
+    -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+    transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+    -o-transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.product-gallery .swiper-button-next:hover,
+.product-gallery .swiper-button-prev:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    /* Немного увеличим при наведении */
+}
+
+/* Изменяем размер иконки внутри стрелки */
+.product-gallery .swiper-button-next::after,
+.product-gallery .swiper-button-prev::after {
+    font-size: 2rem;
+    /* Можешь поменять на свой вкус */
+    font-weight: 800;
+}
+
+
+/* --- Стили информации о товаре --- */
+.product-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.product-info .breadcrumbs {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-info .breadcrumbs a {
+    color: #777;
+    text-decoration: none;
+    -webkit-transition: color .3s ease;
+    -o-transition: color .3s ease;
+    transition: color .3s ease;
+}
+
+.product-info .breadcrumbs a:hover {
+    color: var(--clr-dark);
+    text-decoration: none;
+}
+
+.product-info__title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.product-meta-container {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.product-meta {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 30px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.product-meta:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.product-description {
+    margin-top: 15px;
+    font-family: 'Craftwork', sans-serif;
+    line-height: 1.6;
+}
+
+.product-description h3 {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: var(--clr-dark);
+}
+
+.product-description h3:first-child {
+    margin-top: 0;
+}
+
+.product-description p {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.product-actions {
+    margin-top: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 30px;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.product-price {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: var(--clr-dark);
+}
+
+.add-to-cart-btn-product {
+    background-color: var(--clr-alternative);
+    color: var(--clr-white);
+    border-color: var(--clr-alternative);
+    padding: 15px 40px;
+    cursor: pointer;
+}
+
+.add-to-cart-btn-product:hover {
+    background-color: #522d2c;
+    border-color: #522d2c;
+}
+
+
+/* Адаптивные стили для страницы товара */
+@media (max-width: 992px) {
+    .product-page__inner {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-page {
+        padding-top: 100px;
+    }
+
+    .product-info__title {
+        font-size: 1.5rem;
+    }
+
+    .product-actions {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        gap: 20px;
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    .product-gallery-slider .swiper-slide {
+        aspect-ratio: 2 / 3;
+    }
+
+    .product-gallery-slider {
+        margin: 0 30px;
+    }
+
+    .product-gallery .swiper-button-prev {
+        left: -5px;
+    }
+
+    .product-gallery .swiper-button-next {
+        right: -5px;
+    }
+}
+
+/* ======= NEW: Product Page Styles End ======= */
