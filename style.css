@@ -439,11 +439,13 @@ body.no-scroll {
     padding: 0;
 }
 
-.header__nav-item {
+.header__nav-item,
+.header__nav-list > li {
     margin-left: 35px;
 }
 
-.header__nav-link {
+.header__nav-link,
+.header__nav-list > li > a {
     font-family: 'Angst', sans-serif;
     font-weight: 700;
     /* color: var(--clr-white); прозора */
@@ -458,7 +460,8 @@ body.no-scroll {
     font-size: 14px;
 }
 
-.header.fixed .header__nav-link {
+.header.fixed .header__nav-link,
+.header.fixed .header__nav-list > li > a {
     color: var(--clr-dark);
 }
 
@@ -503,6 +506,31 @@ body.no-scroll {
     justify-content: center;
     width: 22px;
     height: 22px;
+    position: relative;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -4px;
+    right: -7px;
+    background-color: #d9534f;
+    color: var(--clr-white);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+/* Показываем счетчик, только если в нем есть товары */
+.cart-counter.visible {
+    transform: scale(1);
 }
 
 .header__cart svg {
@@ -656,7 +684,8 @@ body.no-scroll {
         align-items: center;
     }
 
-    .header__nav-item {
+    .header__nav-item,
+    .header__nav-list > li {
         margin: 15px 0;
 
         /* --- NEW: Staggered Animation for Nav Items --- */
@@ -669,7 +698,8 @@ body.no-scroll {
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .header__nav.active .header__nav-item {
+    .header__nav.active .header__nav-item,
+    .header__nav.active .header__nav-list > li {
         opacity: 1;
         -webkit-transform: translateY(0);
         -ms-transform: translateY(0);
@@ -677,31 +707,36 @@ body.no-scroll {
     }
 
     /* --- NEW: Adding delay for each item --- */
-    .header__nav.active .header__nav-item:nth-child(1) {
+    .header__nav.active .header__nav-item:nth-child(1),
+    .header__nav.active .header__nav-list > li:nth-child(1) {
         -webkit-transition-delay: 0.1s;
         -o-transition-delay: 0.1s;
         transition-delay: 0.1s;
     }
 
-    .header__nav.active .header__nav-item:nth-child(2) {
+    .header__nav.active .header__nav-item:nth-child(2),
+    .header__nav.active .header__nav-list > li:nth-child(2) {
         -webkit-transition-delay: 0.15s;
         -o-transition-delay: 0.15s;
         transition-delay: 0.15s;
     }
 
-    .header__nav.active .header__nav-item:nth-child(3) {
+    .header__nav.active .header__nav-item:nth-child(3),
+    .header__nav.active .header__nav-list > li:nth-child(3) {
         -webkit-transition-delay: 0.2s;
         -o-transition-delay: 0.2s;
         transition-delay: 0.2s;
     }
 
-    .header__nav.active .header__nav-item:nth-child(4) {
+    .header__nav.active .header__nav-item:nth-child(4),
+    .header__nav.active .header__nav-list > li:nth-child(4) {
         -webkit-transition-delay: 0.25s;
         -o-transition-delay: 0.25s;
         transition-delay: 0.25s;
     }
 
-    .header__nav.active .header__nav-item:nth-child(5) {
+    .header__nav.active .header__nav-item:nth-child(5),
+    .header__nav.active .header__nav-list > li:nth-child(5) {
         -webkit-transition-delay: 0.3s;
         -o-transition-delay: 0.3s;
         transition-delay: 0.3s;
@@ -1151,7 +1186,8 @@ body.no-scroll {
     text-align: center;
 }
 
-.about__description {
+.about__description,
+.about__text-wrapper > * {
     font-family: 'Craftwork', sans-serif;
     font-size: 1rem;
     line-height: 1.5;
@@ -1515,11 +1551,15 @@ body.no-scroll {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+
+    background-size: cover;
+    background-position: center center; /* Позиция по центру для больших экранов */
+    background-attachment: fixed; /* Эффект параллакса */
 }
 
 /* Создаем фоновый слой */
 .cta-banner::before {
-    content: '';
+    /* content: ''; */
     position: fixed;
     /* Вот ключ к успеху! */
     left: 0;
@@ -1598,6 +1638,8 @@ body.no-scroll {
         -webkit-box-align: end;
         -ms-flex-align: end;
         align-items: flex-end;
+
+        background-position: right 28% center;
     }
 
     .cta-banner::before {
@@ -1651,7 +1693,8 @@ body.no-scroll {
     /* Займає 50% ширини */
 }
 
-.creativity__description {
+.creativity__description,
+.creativity__text-wrapper > p {
     font-family: 'Craftwork', sans-serif;
     font-size: 1rem;
     line-height: 1.5;
@@ -2984,3 +3027,236 @@ body.no-scroll {
 }
 
 /* ======= NEW: Product Page Styles End ======= */
+
+/* ======= Cart Page Styles Start ======= */
+
+/* --- Общий макет страницы --- */
+.main-content {
+    padding-top: 120px; /* Отступ от фиксированного хедера */
+    padding-bottom: 80px;
+}
+
+/* --- Общий макет страницы --- */
+.cart-page-wrapper {
+    /* Тут больше не нужно ограничение ширины */
+    margin: 0 auto;
+}
+
+.form-container {
+    max-width: 800px; /* Ограничиваем ширину только для формы */
+    margin: 0 auto;   /* И центрируем ее */
+}
+
+.cart-page-wrapper .section-title {
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--clr-dark);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#order-form-wrapper {
+    margin-top: 60px;
+}
+
+/* --- Стили для списка товаров в корзине --- */
+#cart-container {
+    border-top: 1px solid #e0e0e0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.cart-item a {
+    flex: 3;
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--clr-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.cart-item a:hover {
+    color: var(--clr-alternative);
+}
+
+.cart-item span {
+    font-family: 'Craftwork', sans-serif;
+    color: #555;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.cart-item .item-quantity {
+    flex: 0;
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+}
+
+.cart-item .remove-item {
+    flex-basis: 30px;
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.8em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.cart-item .remove-item:hover {
+    color: red;
+}
+
+.cart-item-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
+    justify-content: space-between;
+}
+
+#cart-container hr {
+    display: none; /* Скрываем hr, так как у нас есть бордеры */
+}
+
+#cart-container p {
+    text-align: right;
+    font-size: 1.5em;
+    font-family: 'Angst', sans-serif;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+/* --- Стили для формы Gravity Forms --- */
+.gform_wrapper ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.gform_wrapper li.gfield {
+    margin-bottom: 20px !important;
+    padding: 0 !important;
+}
+
+.gform_wrapper .gfield_label {
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--clr-dark);
+    margin-bottom: 8px !important;
+}
+
+.gform_wrapper input[type="text"],
+.gform_wrapper input[type="tel"],
+.gform_wrapper textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Craftwork', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.gform_wrapper input[type="text"]:focus,
+.gform_wrapper input[type="tel"]:focus,
+.gform_wrapper textarea:focus {
+    outline: none;
+    border-color: var(--clr-alternative);
+}
+
+.gform_wrapper .gform_footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Стилизуем кнопку отправки под стиль .hero__btn */
+.gform_wrapper .gform_button {
+    display: inline-block;
+    padding: 15px 45px !important;
+    border: 1px solid var(--clr-dark) !important;
+    background-color: transparent !important;
+    color: var(--clr-dark) !important;
+    font-family: 'Craftwork', sans-serif;
+    font-weight: 400;
+    font-size: 1rem !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.gform_wrapper .gform_button:hover {
+    background-color: var(--clr-alternative) !important;
+    color: var(--clr-white) !important;
+    border-color: var(--clr-alternative) !important;
+}
+
+/* --- Адаптация для мобильных --- */
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+    .cart-page-wrapper .section-title {
+        font-size: 1.75rem;
+    }
+    .cart-item {
+        flex-direction: column; /* Ставим все в колонку */
+        align-items: flex-start; /* Выравниваем по левому краю */
+        position: relative;
+        padding: 15px 0;
+    }
+
+    .cart-item-title {
+        text-align: left;
+        margin-bottom: 15px; /* Больше отступ снизу */
+        font-size: 1.1rem; /* Чуть крупнее шрифт названия */
+    }
+
+    .cart-item-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%; /* На всю ширину */
+        gap: 10px;
+    }
+    
+    .cart-item-price {
+        text-align: left;
+    }
+
+    .cart-item-quantity {
+        flex: 0 0 70px; /* Чуть больше места под количество */
+    }
+    
+    .cart-item-total {
+        font-weight: 700;
+        text-align: right;
+    }
+
+    .remove-item {
+        position: absolute;
+        top: 10px;
+        right: 0;
+    }
+}
+
+/* ======= Cart Page Styles End ======= */

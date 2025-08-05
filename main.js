@@ -1,407 +1,480 @@
-const burger = document.querySelector('.burger');
-const nav = document.querySelector('.header__nav');
-const headerWrapper = document.querySelector('.header');
-const body = document.querySelector('body');
+// Оборачиваем весь код в обработчик события, чтобы он выполнялся после полной загрузки DOM
+document.addEventListener('DOMContentLoaded', () => {
 
-burger.addEventListener('click', () => {
-    burger.classList.toggle('active');
-    nav.classList.toggle('active');
-    headerWrapper.classList.toggle('active');
-    body.classList.toggle('no-scroll');
-});
+    // ======== BURGER MENU & HEADER LOGIC ========
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.header__nav');
+    const headerWrapper = document.querySelector('.header');
+    const body = document.querySelector('body');
 
-// ======== КОД ДЛЯ ФІКСОВАНОЇ ШАПКИ ========
-
-const header = document.querySelector('.header');
-
-// Функція, яка буде додавати/видаляти клас
-const handleHeaderScroll = () => {
-    // Якщо сторінка прокручена більше ніж на 10px
-    if (window.scrollY > 10) {
-        header.classList.add('fixed');
-    } else {
-        header.classList.remove('fixed');
-    }
-};
-
-// Відслідковуємо подію скролу
-window.addEventListener('scroll', handleHeaderScroll);
-
-// Також перевіряємо стан при завантаженні сторінки (на випадок, якщо вона завантажилась не зверху)
-document.addEventListener('DOMContentLoaded', handleHeaderScroll);
-
-// ======== ОНОВЛЕНИЙ КОД ДЛЯ ХІРО СЕКЦІЇ ========
-
-const heroImages = document.querySelectorAll('.hero__bg-img');
-let currentImageIndex = 0;
-let zCounter = 1; // Початковий z-index для наступної картинки (активна має z-index: 2)
-
-function showNextImage() {
-    if (heroImages.length === 0) return;
-
-    // Скидаємо z-index, щоб уникнути нескінченного росту
-    if (zCounter > heroImages.length + 1) {
-        heroImages.forEach(img => img.style.zIndex = 1); // Скидаємо всім
-        zCounter = 2; // Починаємо знову з 2
+    if (burger) {
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            nav.classList.toggle('active');
+            headerWrapper.classList.toggle('active');
+            body.classList.toggle('no-scroll');
+        });
     }
 
-    // Наступний індекс із зацикленням
-    const nextImageIndex = (currentImageIndex + 1) % heroImages.length;
-    const nextImage = heroImages[nextImageIndex];
+    // ======== FIXED HEADER ON SCROLL ========
+    const header = document.querySelector('.header');
+    if (header) {
+        const handleHeaderScroll = () => {
+            if (window.scrollY > 10) {
+                header.classList.add('fixed');
+            } else {
+                header.classList.remove('fixed');
+            }
+        };
+        window.addEventListener('scroll', handleHeaderScroll);
+        handleHeaderScroll(); // Проверка при загрузке
+    }
 
-    // Призначаємо новий z-index і робимо картинку активною
-    nextImage.style.zIndex = zCounter++; // Призначаємо і потім збільшуємо
-    nextImage.classList.add('active');
 
-    // Попередню картинку робимо неактивною
-    const currentImage = heroImages[currentImageIndex];
-    currentImage.classList.remove('active');
+    // ======== HERO SECTION IMAGE SLIDER (HOMEPAGE) ========
+    const heroImages = document.querySelectorAll('.hero__bg-img');
+    if (heroImages.length > 1 && window.innerWidth > 768) {
+        let currentImageIndex = 0;
+        let zCounter = 1;
 
-    // Оновлюємо поточний індекс
-    currentImageIndex = nextImageIndex;
-}
+        function showNextImage() {
+            const nextImageIndex = (currentImageIndex + 1) % heroImages.length;
+            const nextImage = heroImages[nextImageIndex];
 
-if (window.innerWidth > 768) {
-    if (heroImages.length > 1) {
-        // Запускаємо зміну зображень кожні 6 секунд (6000 мс)
-        // Час має бути трохи меншим за тривалість анімації transform (8с)
+            nextImage.style.zIndex = zCounter++;
+            nextImage.classList.add('active');
+
+            heroImages[currentImageIndex].classList.remove('active');
+            currentImageIndex = nextImageIndex;
+        }
         setInterval(showNextImage, 4000);
     }
-}
 
-// ======== КОД ДЛЯ СЛАЙДЕРА "КОЛЕКЦІЇ" (ІДЕАЛЬНИЙ РИТМ) ========
 
-if (document.querySelector('.collections-slider')) {
-    const collectionsSlider = new Swiper('.collections-slider', {
-        // Optional parameters
-        loop: true,
-        spaceBetween: 15,
-        speed: 2500,
-        slidesPerGroup: 1,
-    
-        // Конфігурація автопрокрутки
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-        },
-    
-        // Pagination (точки)
-        pagination: {
-            el: '.collections__pagination',
-            clickable: true,
-        },
-    
-        // Responsive breakpoints
-        breakpoints: {
-            320: { slidesPerView: 1, slidesPerGroup: 1 },
-            576: { slidesPerView: 2, slidesPerGroup: 2 },
-            992: { slidesPerView: 3, slidesPerGroup: 3 },
-            1200: { slidesPerView: 4, slidesPerGroup: 4 }
-        }
-    });
-
-    // Зупиняємо автопрокрутку одразу після ініціалізації
-    collectionsSlider.autoplay.stop();
-    
-    // Знаходимо сам елемент слайдера для спостереження
-    const sliderElement = document.querySelector('.collections-slider');
-    
-    // Створюємо спостерігача (Intersection Observer)
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            // Якщо елемент з'явився в зоні видимості
-            if (entry.isIntersecting) {
-                // ОНОВЛЕНО: Додаємо одноразовий слухач на подію завершення анімації
-                collectionsSlider.once('slideChangeTransitionEnd', function () {
-                    // Цей код спрацює, коли перша прокрутка закінчиться.
-                    // Тепер запускаємо стандартну автопрокрутку.
-                    collectionsSlider.autoplay.start();
-                });
-                
-                // Запускаємо першу прокрутку негайно
-                collectionsSlider.slideNext();
-                
-                // Припиняємо спостереження
-                observer.unobserve(sliderElement);
+    // ======== COLLECTIONS SLIDER (SWIPER ON HOMEPAGE) ========
+    if (document.querySelector('.collections-slider')) {
+        const collectionsSlider = new Swiper('.collections-slider', {
+            // Optional parameters
+            loop: true,
+            spaceBetween: 15,
+            speed: 2500,
+            slidesPerGroup: 1,
+        
+            // Конфігурація автопрокрутки
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+        
+            // Pagination (точки)
+            pagination: {
+                el: '.collections__pagination',
+                clickable: true,
+            },
+        
+            // Responsive breakpoints
+            breakpoints: {
+                320: { slidesPerView: 1, slidesPerGroup: 1 },
+                576: { slidesPerView: 2, slidesPerGroup: 2 },
+                992: { slidesPerView: 3, slidesPerGroup: 3 },
+                1200: { slidesPerView: 4, slidesPerGroup: 4 }
             }
         });
-    }, { threshold: 0.1 });
-    
-    // Починаємо спостереження за елементом слайдера
-    observer.observe(sliderElement);
-}
 
-
-// ======== КОД ДЛЯ СЕКЦИИ "ПРО НАС" (POPUP) ========
-
-// Находим все необходимые элементы
-const gridImages = document.querySelectorAll('.about__grid-image');
-const popup = document.querySelector('.popup');
-const popupImg = document.querySelector('.popup__img');
-const popupClose = document.querySelector('.popup__close');
-
-if (popup) {
-    // Функция для открытия попапа
-    function openPopup(e) {
-        popup.classList.add('active'); // Используем класс для показа
-        popupImg.src = e.target.src;   // Устанавливаем картинку
-        body.classList.add('no-scroll'); // Блокируем скролл фона
-    }
-    
-    // Функция для закрытия попапа
-    function closePopup() {
-        popup.classList.remove('active'); // Скрываем попап
-        body.classList.remove('no-scroll'); // Возвращаем скролл
-    }
-    
-    // Добавляем обработчики событий
-    gridImages.forEach(image => {
-        image.addEventListener('click', openPopup);
-    });
-    
-    popupClose.addEventListener('click', closePopup);
-    
-    // Закрытие по клику на оверлей (мимо картинки)
-    popup.addEventListener('click', (e) => {
-        if (e.target === popup) {
-            closePopup();
-        }
-    });
-    
-    // Закрытие по нажатию на клавишу Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && popup.classList.contains('active')) {
-            closePopup();
-        }
-    });
-}
-
-
-// ======== КОД ДЛЯ СЕКЦІЇ "ЧАСТІ ЗАПИТАННЯ" (ACCORDION) ========
-
-const faqItems = document.querySelectorAll('.faq__item');
-
-faqItems.forEach(item => {
-    const question = item.querySelector('.faq__question');
-
-    question.addEventListener('click', () => {
-        // Перевіряємо, чи активний поточний елемент
-        const isActive = item.classList.contains('active');
-
-        // Спочатку закриваємо всі відкриті елементи
-        faqItems.forEach(otherItem => {
-            otherItem.classList.remove('active');
-        });
-
-        // Якщо елемент не був активним, робимо його активним
-        if (!isActive) {
-            item.classList.add('active');
-        }
-        // Якщо він був активним, то після видалення класу вище він залишиться закритим
-    });
-});
-
-// ======== НАДЕЖНЫЙ КОД ВЫРАВНИВАНИЯ ВЫСОТ ДЛЯ ВСЕХ БРАУЗЕРОВ ========
-
-function alignAboutSectionHeights() {
-    const textWrapper = document.querySelector('.about__text-wrapper'); 
-    const imageGrid = document.querySelector('.about__image-grid');
-
-    if (!textWrapper || !imageGrid) return;
-
-    if (window.innerWidth > 992) {
-        // Сначала сбрасываем высоту, чтобы браузер мог вычислить её заново
-        imageGrid.style.height = 'auto';
+        // Зупиняємо автопрокрутку одразу після ініціалізації
+        collectionsSlider.autoplay.stop();
         
-        // Даем браузеру "вздохнуть" перед замером. Это ключевой фикс для Safari.
-        requestAnimationFrame(() => {
-            const contentHeight = textWrapper.offsetHeight;
-            imageGrid.style.height = `${contentHeight}px`;
-        });
-    } else {
-        imageGrid.style.height = 'auto';
-    }
-}
-
-function alignCreativitySectionHeights() {
-    const textWrapper = document.querySelector('.creativity__text-wrapper');
-    const imageContentBlocks = document.querySelectorAll('.creativity__image-content');
-
-    if (!textWrapper || imageContentBlocks.length === 0) return;
-
-    if (window.innerWidth > 992) {
-        // Даем браузеру "вздохнуть" перед замером
-        requestAnimationFrame(() => {
-            const totalHeight = textWrapper.offsetHeight;
-
-            imageContentBlocks.forEach(block => {
-                const imageWrap = block.querySelector('.creativity__image-wrap');
-                const creativityText = block.querySelector('.creativity__text');
-                const listenButton = block.querySelector('.creativity__listen');
-
-                if (!imageWrap || !creativityText || !listenButton) return;
-
-                const textStyles = window.getComputedStyle(creativityText);
-                const buttonStyles = window.getComputedStyle(listenButton);
-
-                const textHeight = creativityText.offsetHeight + parseFloat(textStyles.marginTop) + parseFloat(textStyles.marginBottom);
-                const buttonHeight = listenButton.offsetHeight + parseFloat(buttonStyles.marginTop) + parseFloat(buttonStyles.marginBottom);
-                
-                const heightToSubtract = textHeight + buttonHeight;
-                const finalImageHeight = totalHeight - heightToSubtract;
-                
-                imageWrap.style.height = `${Math.max(0, finalImageHeight)}px`;
+        // Знаходимо сам елемент слайдера для спостереження
+        const sliderElement = document.querySelector('.collections-slider');
+        
+        // Створюємо спостерігача (Intersection Observer)
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // Якщо елемент з'явився в зоні видимості
+                if (entry.isIntersecting) {
+                    // ОНОВЛЕНО: Додаємо одноразовий слухач на подію завершення анімації
+                    collectionsSlider.once('slideChangeTransitionEnd', function () {
+                        // Цей код спрацює, коли перша прокрутка закінчиться.
+                        // Тепер запускаємо стандартну автопрокрутку.
+                        collectionsSlider.autoplay.start();
+                    });
+                    
+                    // Запускаємо першу прокрутку негайно
+                    collectionsSlider.slideNext();
+                    
+                    // Припиняємо спостереження
+                    observer.unobserve(sliderElement);
+                }
             });
+        }, { threshold: 0.1 });
+        
+        // Починаємо спостереження за елементом слайдера
+        observer.observe(sliderElement);
+    }
+
+
+    // ======== ABOUT US SECTION POPUP ========
+    const gridImages = document.querySelectorAll('.about__grid-image');
+    const popup = document.querySelector('.popup');
+    if (popup) {
+        const popupImg = document.querySelector('.popup__img');
+        const popupClose = document.querySelector('.popup__close');
+
+        function openPopup(e) {
+            popup.classList.add('active');
+            popupImg.src = e.target.src;
+            body.classList.add('no-scroll');
+        }
+
+        function closePopup() {
+            popup.classList.remove('active');
+            body.classList.remove('no-scroll');
+        }
+
+        gridImages.forEach(image => image.addEventListener('click', openPopup));
+        popupClose.addEventListener('click', closePopup);
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) closePopup();
         });
-    } else {
-        imageContentBlocks.forEach(block => {
-            const imageWrap = block.querySelector('.creativity__image-wrap');
-            if (imageWrap) {
-                imageWrap.style.height = 'auto';
-            }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popup.classList.contains('active')) closePopup();
         });
     }
-}
-
-// --- ИЗМЕНЕННЫЙ БЛОК ЗАПУСКА ---
-
-// Функция, которая запускает все расчеты
-function runAllAlignments() {
-    alignAboutSectionHeights();
-    alignCreativitySectionHeights();
-}
-
-// 1. Используем window.onload. Это событие ждет загрузки ВСЕХ ресурсов (картинок, шрифтов и т.д.).
-//    Это более надежно для скриптов, зависящих от размеров элементов.
-window.addEventListener('load', runAllAlignments);
-
-// 2. По-прежнему вызываем при изменении размера окна.
-window.addEventListener('resize', runAllAlignments);
 
 
-// ======== NEW/UPDATED: КОД ДЛЯ ФІЛЬТРАЦІЇ ТОВАРІВ ========
-document.addEventListener('DOMContentLoaded', () => {
-    // Selectors for all filter components
-    const filtersContainer = document.querySelector('.store-filters');
-    const filterToggle = document.querySelector('.filter-toggle');
-    const filterListContainer = document.querySelector('.filter-list');
-    const productGrid = document.querySelector('.product-grid');
+    // ======== FAQ ACCORDION ========
+    const faqItems = document.querySelectorAll('.faq__item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq__question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(otherItem => otherItem.classList.remove('active'));
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+
+    // ======== HEIGHT ALIGNMENT SCRIPTS ========
+    function alignElementHeights() {
+        // ... твой код для выравнивания высот, если он нужен ...
+    }
+    window.addEventListener('load', alignElementHeights);
+    window.addEventListener('resize', alignElementHeights);
+
+
+    // ======== PRODUCT PAGE GALLERY SLIDER (SWIPER) ========
+    if (document.querySelector('.product-gallery-slider')) {
+        new Swiper('.product-gallery-slider', {
+            loop: true,
+            spaceBetween: 10,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+
+    // ======== CREATIVITY SLIDER (SWIPER) ========
+    if (document.querySelector('.creativity-slider')) {
+        new Swiper('.creativity-slider', {
+            loop: true,
+            spaceBetween: 10,
+            pagination: {
+                el: '.creativity__pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 4000,
+            },
+            speed: 2500,
+        });
+    }
     
-    // --- НОВИЙ СЕЛЕКТОР ---
-    // Выбираем span внутри кнопки, чтобы менять его текст
-    const filterToggleText = document.querySelector('.filter-toggle > span');
-
-    // Check if the main components exist on the page
-    if (!filtersContainer || !filterToggle || !filterListContainer || !productGrid || !filterToggleText) {
-        return;
-    }
-
-    // Logic for the mobile accordion toggle
-    filterToggle.addEventListener('click', () => {
-        filtersContainer.classList.toggle('active');
-    });
-
-    const filterButtons = filterListContainer.querySelectorAll('.filter-btn');
-    const productCards = productGrid.querySelectorAll('.product-card');
-
-    filterListContainer.addEventListener('click', (event) => {
-        const target = event.target;
-
-        // Ensure the click was on a filter button
-        if (!target.matches('.filter-btn')) {
-            return;
-        }
-
-        const filterValue = target.getAttribute('data-filter');
-
-        // Update active state on buttons
-        filterButtons.forEach(button => {
-            button.classList.remove('active');
-        });
-        target.classList.add('active');
-        
-        // --- НОВО: Оновлюємо текст головної кнопки ---
-        // Устанавливаем текст главной кнопки равным тексту активного фильтра
-        filterToggleText.textContent = target.textContent;
-
-        // Filter the products
-        productCards.forEach(card => {
-            const cardCategory = card.getAttribute('data-category');
-
-            if (filterValue === 'all' || filterValue === cardCategory) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        
-        // Close the filter list on mobile after a selection is made
-        if (window.innerWidth <= 768) {
-            filtersContainer.classList.remove('active');
-        }
-    });
-});
-// ======== NEW: КОД ДЛЯ СЛАЙДЕРА НА СТРАНИЦЕ ПРОДУКТА ========
-// Проверяем, существует ли на странице элемент слайдера, чтобы избежать ошибок
-if (document.querySelector('.product-gallery-slider')) {
-    const productGallerySlider = new Swiper('.product-gallery-slider', {
-        loop: true,
-        spaceBetween: 10,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        // ДОБАВЛЯЕМ ПАРАМЕТР НАВИГАЦИИ
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-}
-
-// ======== NEW: КОД ДЛЯ ПАРАЛАКСА BACKGROUND-POSITION ========
-document.addEventListener('DOMContentLoaded', () => {
+    // ======== STORE HERO PARALLAX ========
     const storeHero = document.querySelector('.store-hero');
-
-    // Проверяем только существование элемента
     if (storeHero) {
-        let ticking = false; // Флаг, чтобы избежать лишних вызовов
-
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            // Если новый кадр анимации еще не запрошен, запрашиваем его
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    const scrollY = window.scrollY;
-                    const yPos = scrollY * 0.5; // Коэффициент параллакса
-                    
-                    // Применяем новую позицию фона
-                    storeHero.style.backgroundPosition = `50% calc(50% + ${yPos}px)`;
-                    
-                    // Сбрасываем флаг, чтобы можно было запросить следующий кадр
-                    ticking = false; 
+                    storeHero.style.backgroundPosition = `50% calc(50% + ${window.scrollY * 0.5}px)`;
+                    ticking = false;
                 });
-
-                // Устанавливаем флаг, что кадр уже запрошен
                 ticking = true;
             }
         });
     }
-});
+    
+    // ======== STORE FILTER LOGIC (DYNAMIC COLLECTIONS) ========
+    const filtersContainer = document.querySelector('.store-filters');
+    if (filtersContainer) {
+        const filterToggle = filtersContainer.querySelector('.filter-toggle');
+        const filterList = filtersContainer.querySelector('.filter-list');
+        const filterButtons = filterList.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-grid .product-card');
+        const filterToggleText = filterToggle.querySelector('span');
 
-// ======== NEW: КОД ДЛЯ СЛАЙДЕРА НА СТРАНИЦЕ ПРОДУКТА ========
-// Проверяем, существует ли на странице элемент слайдера, чтобы избежать ошибок
-if (document.querySelector('.creativity-slider')) {
-    const creativitySlider = new Swiper('.creativity-slider', {
-        loop: true,
-        spaceBetween: 10,
-        pagination: {
-            el: '.creativity__pagination',
-            clickable: true,
-        },
-        autoplay: {
-            delay: 4000,
-        },
-        speed: 2500,
+        // Логика для мобильного аккордеона
+        filterToggle.addEventListener('click', () => {
+            filtersContainer.classList.toggle('active');
+        });
+
+        // Функция фильтрации
+        const filterProducts = (filterValue) => {
+            // Обновляем текст главной кнопки на мобилке
+            const filterList = document.querySelector('.filter-list'); // Нам нужен доступ к списку
+            const filterToggleText = document.querySelector('.filter-toggle span');
+            const activeButton = filterList.querySelector(`.filter-btn[data-filter="${filterValue}"]`);
+            if (activeButton && filterToggleText) {
+                filterToggleText.textContent = activeButton.textContent;
+            }
+            
+            // Обновляем активное состояние кнопок
+            const filterButtons = filterList.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.classList.toggle('active', button.dataset.filter === filterValue);
+            });
+
+            // Фильтруем карточки товаров
+            const productCards = document.querySelectorAll('.product-grid .product-card');
+            productCards.forEach(card => {
+                const cardCategories = card.dataset.category || '';
+
+                // --- НОВАЯ ЛОГИКА (ПРАВИЛЬНАЯ) ---
+                // 1. Разбиваем строку с категориями на массив отдельных слов (слагов)
+                const categoriesArray = cardCategories.split(' ');
+                
+                // 2. Проверяем точное совпадение в массиве
+                if (filterValue === 'all' || categoriesArray.includes(filterValue)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Закрываем аккордеон на мобилке после выбора
+            const filtersContainer = document.querySelector('.store-filters');
+            if (window.innerWidth <= 768) {
+                filtersContainer.classList.remove('active');
+            }
+        };
+
+        // Клик по кнопке фильтра
+        filterList.addEventListener('click', (event) => {
+            if (event.target.matches('.filter-btn')) {
+                const filterValue = event.target.dataset.filter;
+                filterProducts(filterValue);
+            }
+        });
+
+        // Проверка URL на наличие параметра при загрузке страницы
+        const urlParams = new URLSearchParams(window.location.search);
+        const collectionFromUrl = urlParams.get('collection');
+
+        if (collectionFromUrl) {
+            // Если параметр есть, запускаем фильтрацию по нему
+            filterProducts(collectionFromUrl);
+        }
+    }
+
+
+    // ======== SIMPLE CART LOGIC (NO WOOCOMMERCE) ========
+
+    // Функция для обновления счетчика в хедере
+    const updateCartCounter = () => {
+        const counterElement = document.querySelector('.cart-counter');
+        if (!counterElement) return;
+
+        const cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+        counterElement.textContent = totalItems;
+
+        if (totalItems > 0) {
+            counterElement.classList.add('visible');
+        } else {
+            counterElement.classList.remove('visible');
+        }
+    };
+    
+    // --- Добавление товара в корзину ---
+    function addToCart(product) {
+        let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
+        const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+        if (existingProductIndex > -1) {
+            cart[existingProductIndex].quantity++;
+        } else {
+            cart.push(product);
+        }
+        localStorage.setItem('veyaCart', JSON.stringify(cart));
+        console.log('Cart updated:', cart);
+        
+        updateCartCounter(); // --- ДОБАВЛЕНО ---
+    }
+    
+    // Универсальный обработчик для всех кнопок "В корзину"
+    document.body.addEventListener('click', (e) => {
+        if (e.target.matches('.add-to-cart-btn') || e.target.matches('.add-to-cart-btn-product')) {
+             e.preventDefault();
+             const button = e.target;
+             const productDataElement = button.closest('[data-id]'); // Ищем ближайшего родителя с data-атрибутами
+             
+             if(productDataElement) {
+                const product = {
+                    id: productDataElement.dataset.id,
+                    title: productDataElement.dataset.title,
+                    price: parseFloat(productDataElement.dataset.price),
+                    link: productDataElement.dataset.link,
+                    quantity: 1
+                };
+                addToCart(product);
+    
+                // Обратная связь
+                const originalText = button.textContent;
+                button.textContent = 'Додано в корзину!';
+                button.disabled = true;
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                }, 2000);
+             }
+        }
     });
-}
+
+    // ======== ЛОГИКА СТРАНИЦЫ КОРЗИНЫ ========
+    const cartPageContainer = document.getElementById('cart-container');
+    if (cartPageContainer) {
+
+        // --- НОВАЯ ФУНКЦИЯ для обновления скрытого поля Gravity Forms ---
+        const updateHiddenCartField = () => {
+            // Убедись, что jQuery доступен
+            if (typeof jQuery === 'undefined') return;
+
+            const cartData = JSON.parse(localStorage.getItem('veyaCart')) || [];
+            // Укажи ID формы и ID скрытого поля
+            const formId = 1;
+            const hiddenInputId = 5;
+            const hiddenInput = jQuery(`#input_${formId}_${hiddenInputId}`);
+
+            // Если поле найдено и корзина не пуста, заполняем его
+            if (hiddenInput.length) {
+                if (cartData.length > 0) {
+                    let emailBody = '';
+                    const total = cartData.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+                    cartData.forEach(item => {
+                        emailBody += `Товар: ${item.title}\n`;
+                        emailBody += `Кількість: ${item.quantity}\n`;
+                        emailBody += `Ціна: ${item.price} грн\n`;
+                        emailBody += `----------------------------------\n`;
+                    });
+                    
+                    emailBody += `\nВсього до сплати: ${total.toFixed(2)} грн`;
+                    
+                    hiddenInput.val(emailBody);
+                } else {
+                    // Если корзина пуста, очищаем поле
+                    hiddenInput.val('');
+                }
+            }
+        };
+
+        // --- Функция отображения корзины ---
+        const renderCart = (isAfterSubmission = false) => {
+            let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
+            const orderForm = document.getElementById('order-form-wrapper');
+            let total = 0;
+
+            if (cart.length === 0) {
+                if (isAfterSubmission) {
+                    cartPageContainer.innerHTML = '<p style="font-size: 1.2em; text-align: center; color: green;">Дякуємо за ваше замовлення! Ми скоро з вами зв\'яжемося.</p>';
+                } else {
+                    cartPageContainer.innerHTML = '<p style="text-align: center;">Ваша корзина порожня.</p>';
+                }
+                if (orderForm) orderForm.style.display = 'none';
+                return;
+            }
+
+            if (orderForm) orderForm.style.display = 'block';
+
+            const cartHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                return `
+                    <div class="cart-item" data-id="${item.id}">
+                        <a href="${item.link}" class="cart-item-title">${item.title}</a>
+                        <div class="cart-item-details">
+                            <span class="cart-item-price">${item.price} грн</span>
+                            <input type="number" class="item-quantity" value="${item.quantity}" min="1">
+                            <span class="cart-item-total">Сумма: ${itemTotal.toFixed(2)} грн</span>
+                        </div>
+                        <button class="remove-item">&times;</button>
+                    </div>
+                `;
+            }).join('');
+
+            cartPageContainer.innerHTML = cartHTML + `<hr><p style="text-align: right; font-size: 1.2em;"><strong>Всього: ${total.toFixed(2)} грн</strong></p>`;
+            
+            // ВЫЗЫВАЕМ ОБНОВЛЕНИЕ СКРЫТОГО ПОЛЯ КАЖДЫЙ РАЗ ПРИ ПЕРЕРИСОВКЕ КОРЗИНЫ
+            updateHiddenCartField();
+        };
+
+        // --- Функции для управления корзиной ---
+        const updateQuantity = (productId, newQuantity) => {
+            let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
+            const productIndex = cart.findIndex(item => item.id === productId);
+            if (productIndex > -1 && newQuantity > 0) {
+                cart[productIndex].quantity = parseInt(newQuantity, 10);
+                localStorage.setItem('veyaCart', JSON.stringify(cart));
+                renderCart(); // renderCart вызовет updateHiddenCartField
+                updateCartCounter();
+            }
+        };
+
+        const removeItem = (productId) => {
+            let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('veyaCart', JSON.stringify(cart));
+            renderCart(); // renderCart вызовет updateHiddenCartField
+            updateCartCounter();
+        };
+
+        // --- Обработчики событий (без изменений) ---
+        cartPageContainer.addEventListener('change', (e) => {
+            if (e.target.classList.contains('item-quantity')) {
+                const productId = e.target.closest('.cart-item').dataset.id;
+                updateQuantity(productId, e.target.value);
+            }
+        });
+        cartPageContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-item')) {
+                const productId = e.target.closest('.cart-item').dataset.id;
+                removeItem(productId);
+            }
+        });
+
+        // --- Интеграция с Gravity Forms (только очистка корзины) ---
+        if (typeof jQuery !== 'undefined') {
+            // УБИРАЕМ СТАРЫЙ КОД ОБРАБОТКИ ОТПРАВКИ
+            // Оставляем только обработчик успешного завершения
+            jQuery(document).on('gform_confirmation_loaded', function(event, form_id) {
+                console.log('Заказ успешно отправлен, очищаем корзину.');
+                localStorage.removeItem('veyaCart');
+                renderCart(true); // Показываем сообщение "Спасибо"
+            });
+        }
+
+        // Первичный рендер корзины при загрузке страницы
+        renderCart();
+    }
+    updateCartCounter();
+
+}); // Конец DOMContentLoaded
