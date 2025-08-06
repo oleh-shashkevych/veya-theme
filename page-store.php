@@ -74,6 +74,7 @@
                     while ($products_query->have_posts()) : $products_query->the_post();
                         // --- Получаем все нужные данные для карточки ---
                         $price = get_field('product_price');
+                        $code = get_field('product_code');
                         $product_collections = get_the_terms(get_the_ID(), 'collection');
                         $collection_slugs = '';
                         if ($product_collections) {
@@ -86,7 +87,8 @@
                         data-id="<?php the_ID(); ?>"
                         data-title="<?php the_title_attribute(); ?>"
                         data-price="<?php echo esc_attr($price); ?>"
-                        data-link="<?php the_permalink(); ?>">
+                        data-link="<?php the_permalink(); ?>"
+                        data-code="<?php echo esc_attr($code); ?>">
                         
                         <a href="<?php the_permalink(); ?>" class="product-card__link">
                             <div class="product-card__image-wrap">

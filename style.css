@@ -1558,7 +1558,7 @@ body.no-scroll {
 }
 
 /* Создаем фоновый слой */
-.cta-banner::before {
+.cta-banner__image {
     /* content: ''; */
     position: fixed;
     /* Вот ключ к успеху! */
@@ -1566,11 +1566,14 @@ body.no-scroll {
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: url('images/hero-nadyh.webp');
-    background-size: cover;
-    background-position: center;
     z-index: -1;
-    /* Помещаем фон ЗА контентом */
+}
+
+.cta-banner__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .cta-banner__overlay {
@@ -1642,8 +1645,14 @@ body.no-scroll {
         background-position: right 28% center;
     }
 
-    .cta-banner::before {
-        background-position: right 28% center;
+    .cta-banner__image img {
+        width: auto;
+        height: 100vh;
+        object-fit: unset;
+        transform: translateX(7%);
+        position: absolute;
+        right: 0;
+        top: 0;
     }
 
     .cta-banner__content p {

@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: productDataElement.dataset.title,
                     price: parseFloat(productDataElement.dataset.price),
                     link: productDataElement.dataset.link,
+                    code: productDataElement.dataset.code,
                     quantity: 1
                 };
                 addToCart(product);
@@ -353,41 +354,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartPageContainer = document.getElementById('cart-container');
     if (cartPageContainer) {
 
-        // --- НОВАЯ ФУНКЦИЯ для обновления скрытого поля Gravity Forms ---
-        const updateHiddenCartField = () => {
-            // Убедись, что jQuery доступен
+        const updateHiddenFields = () => {
             if (typeof jQuery === 'undefined') return;
 
             const cartData = JSON.parse(localStorage.getItem('veyaCart')) || [];
-            // Укажи ID формы и ID скрытого поля
-            const formId = 1;
-            const hiddenInputId = 5;
-            const hiddenInput = jQuery(`#input_${formId}_${hiddenInputId}`);
+            
+            // --- УКАЖИ ЗДЕСЬ СВОИ ID ---
+            const formId = 1; 
+            const listFieldId = 9; // Судя по твоему HTML (id="field_1_9"), ID поля-списка = 9
+            const totalFieldId = 10;    // ПРОВЕРЬ ID ПОЛЯ "ИТОГОВАЯ СУММА" И ПОСТАВЬ СЮДА
 
-            // Если поле найдено и корзина не пуста, заполняем его
-            if (hiddenInput.length) {
+            const listFieldContainer = jQuery(`#field_${formId}_${listFieldId}`);
+            const totalInput = jQuery(`#input_${formId}_${totalFieldId}`);
+
+            if (listFieldContainer.length && totalInput.length) {
+                // 1. Очищаем все строки списка, кроме первой
+                listFieldContainer.find('.gfield_list_group:not(:first)').remove();
+
                 if (cartData.length > 0) {
-                    let emailBody = '';
                     const total = cartData.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-                    cartData.forEach(item => {
-                        emailBody += `Товар: ${item.title}\n`;
-                        emailBody += `Кількість: ${item.quantity}\n`;
-                        emailBody += `Ціна: ${item.price} грн\n`;
-                        emailBody += `----------------------------------\n`;
+                    // 2. Заполняем строки данными для каждого товара в корзине
+                    cartData.forEach((item, index) => {
+                        // Для всех товаров, кроме первого, "нажимаем" на плюсик для создания новой строки
+                        if (index > 0) {
+                            listFieldContainer.find('.add_list_item').trigger('click');
+                        }
+                        
+                        // Находим текущую строку (по ее индексу)
+                        const currentRow = listFieldContainer.find('.gfield_list_group').eq(index);
+                        
+                        // Находим инпуты в колонках и заполняем их
+                        currentRow.find(`.gfield_list_${listFieldId}_cell1 input`).val(item.code || ''); // Код товара
+                        currentRow.find(`.gfield_list_${listFieldId}_cell2 input`).val(item.title);      // Название
+                        currentRow.find(`.gfield_list_${listFieldId}_cell3 input`).val(item.price);      // Цена
+                        currentRow.find(`.gfield_list_${listFieldId}_cell4 input`).val(item.quantity);  // Количество
                     });
-                    
-                    emailBody += `\nВсього до сплати: ${total.toFixed(2)} грн`;
-                    
-                    hiddenInput.val(emailBody);
+
+                    // 3. Устанавливаем итоговую сумму
+                    totalInput.val(total.toFixed(2));
+
                 } else {
-                    // Если корзина пуста, очищаем поле
-                    hiddenInput.val('');
+                    // Если корзина пуста, очищаем инпуты в первой (и единственной) строке
+                    listFieldContainer.find('.gfield_list_group:first input').val('');
+                    totalInput.val('');
                 }
             }
         };
 
-        // --- Функция отображения корзины ---
         const renderCart = (isAfterSubmission = false) => {
             let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
             const orderForm = document.getElementById('order-form-wrapper');
@@ -400,6 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     cartPageContainer.innerHTML = '<p style="text-align: center;">Ваша корзина порожня.</p>';
                 }
                 if (orderForm) orderForm.style.display = 'none';
+                updateHiddenFields();
                 return;
             }
 
@@ -423,18 +438,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cartPageContainer.innerHTML = cartHTML + `<hr><p style="text-align: right; font-size: 1.2em;"><strong>Всього: ${total.toFixed(2)} грн</strong></p>`;
             
-            // ВЫЗЫВАЕМ ОБНОВЛЕНИЕ СКРЫТОГО ПОЛЯ КАЖДЫЙ РАЗ ПРИ ПЕРЕРИСОВКЕ КОРЗИНЫ
-            updateHiddenCartField();
+            updateHiddenFields();
         };
 
-        // --- Функции для управления корзиной ---
+        // --- Остальные функции (updateQuantity, removeItem, обработчики событий) остаются без изменений ---
         const updateQuantity = (productId, newQuantity) => {
             let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
             const productIndex = cart.findIndex(item => item.id === productId);
             if (productIndex > -1 && newQuantity > 0) {
                 cart[productIndex].quantity = parseInt(newQuantity, 10);
                 localStorage.setItem('veyaCart', JSON.stringify(cart));
-                renderCart(); // renderCart вызовет updateHiddenCartField
+                renderCart();
                 updateCartCounter();
             }
         };
@@ -443,11 +457,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let cart = JSON.parse(localStorage.getItem('veyaCart')) || [];
             cart = cart.filter(item => item.id !== productId);
             localStorage.setItem('veyaCart', JSON.stringify(cart));
-            renderCart(); // renderCart вызовет updateHiddenCartField
+            renderCart();
             updateCartCounter();
         };
 
-        // --- Обработчики событий (без изменений) ---
         cartPageContainer.addEventListener('change', (e) => {
             if (e.target.classList.contains('item-quantity')) {
                 const productId = e.target.closest('.cart-item').dataset.id;
@@ -461,18 +474,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // --- Интеграция с Gravity Forms (только очистка корзины) ---
         if (typeof jQuery !== 'undefined') {
-            // УБИРАЕМ СТАРЫЙ КОД ОБРАБОТКИ ОТПРАВКИ
-            // Оставляем только обработчик успешного завершения
             jQuery(document).on('gform_confirmation_loaded', function(event, form_id) {
                 console.log('Заказ успешно отправлен, очищаем корзину.');
                 localStorage.removeItem('veyaCart');
-                renderCart(true); // Показываем сообщение "Спасибо"
+                renderCart(true);
             });
         }
 
-        // Первичный рендер корзины при загрузке страницы
         renderCart();
     }
     updateCartCounter();

@@ -157,7 +157,10 @@
         </div>
     </section>
     <?php if ( $cta_bg = get_field('cta_background_image') ): ?>
-    <section class="cta-banner" style="background-image: url('<?php echo esc_url($cta_bg['url']); ?>');">
+    <section class="cta-banner">
+        <div class="cta-banner__image">
+            <img src="<?php echo esc_url($cta_bg['url']); ?>" alt="<?php echo esc_attr($cta_bg['alt']); ?>">
+        </div>
         <div class="cta-banner__overlay"></div>
         <div class="container">
             <div class="cta-banner__content">

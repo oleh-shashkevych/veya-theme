@@ -8,6 +8,7 @@
         $height = get_field('product_height');
         $code = get_field('product_code');
         $price = get_field('product_price');
+        $code = get_field('product_code');
 
     ?>
     <section class="product-page">
@@ -16,7 +17,8 @@
                  data-id="<?php the_ID(); ?>"
                  data-title="<?php the_title_attribute(); ?>"
                  data-price="<?php echo esc_attr($price); ?>"
-                 data-link="<?php the_permalink(); ?>">
+                 data-link="<?php the_permalink(); ?>"
+                data-code="<?php echo esc_attr($code); ?>">
 
                 <div class="product-gallery">
                     <div class="swiper product-gallery-slider">
