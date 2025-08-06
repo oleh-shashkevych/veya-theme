@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="cart-item-details">
                             <span class="cart-item-price">${item.price} грн</span>
                             <input type="number" class="item-quantity" value="${item.quantity}" min="1">
-                            <span class="cart-item-total">Сумма: ${itemTotal.toFixed(2)} грн</span>
+                            <span class="cart-item-total">Сума: ${itemTotal.toFixed(2)} грн</span>
                         </div>
                         <button class="remove-item">&times;</button>
                     </div>
